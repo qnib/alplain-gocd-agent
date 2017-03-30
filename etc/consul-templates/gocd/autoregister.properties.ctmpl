@@ -1,3 +1,0 @@
-agent.auto.register.key={{ env "GOCD_AGENT_AUTOENABLE_KEY" }}
-agent.auto.register.environments={{ env "GOCD_AGENT_AUTOENABLE_ENV" }}
-agent.auto.register.resources={{ env "GOCD_AGENT_AUTOENABLE_RESOURCES" }}
