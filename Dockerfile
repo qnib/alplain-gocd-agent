@@ -6,7 +6,7 @@ ENV GO_SERVER=gocd-server \
     GOCD_CLEAN_IMAGES=false \
     DOCKER_TAG_REV=true \
     GOCD_AGENT_AUTOENABLE_KEY=qnibFTW \
-    GOCD_AGENT_AUTOENABLE_ENV=latest,upstream,stack-test,stack \
+    GOCD_AGENT_AUTOENABLE_ENV=latest,upstream,docker \
     GOCD_AGENT_AUTOENABLE_RESOURCES=alpine \
     DOCKER_REPO_DEFAULT=qnib \
     GOPATH=/usr/local/ \
@@ -33,5 +33,6 @@ RUN chmod +x /opt/go-agent/agent.sh
 ADD opt/qnib/gocd/agent/bin/check.sh \
     opt/qnib/gocd/agent/bin/start.sh \
     /opt/qnib/gocd/agent/bin/
-ADD etc/consul-templates/gocd/autoregister.properties.ctmpl /etc/consul-templates/gocd/
+ADD opt/qnib/entry/20-gocd-render-autoregister-conf.sh /opt/qnib/entry/
+ADD opt/qnib/gocd/etc/autoregister.properties /opt/qnib/gocd/etc/
 CMD ["/opt/qnib/gocd/agent/bin/start.sh"]
