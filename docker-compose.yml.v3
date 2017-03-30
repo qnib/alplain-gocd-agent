@@ -2,6 +2,13 @@ version: '3'
 services:
   server:
     image: qnib/alplain-gocd-server
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
     ports:
      - 8153:8153
     volumes:
@@ -10,6 +17,13 @@ services:
      - GOCD_SERVER_CLEAN_WORKSPACE=false
   agent:
     image: qnib/alplain-gocd-agent
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: on-failure
     environment:
      - GO_SERVER=gocd_server
      - DOCKER_HOST=unix:///var/run/docker.sock
