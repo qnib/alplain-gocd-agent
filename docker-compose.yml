@@ -4,11 +4,9 @@ services:
     image: qnib/alplain-gocd-server
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
     ports:
      - 8153:8153
     volumes:
