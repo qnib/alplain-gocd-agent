@@ -1,4 +1,4 @@
-FROM qnib/alplain-jre8
+FROM qnib/alplain-openjre8
 
 ARG GOCD_URL=https://download.gocd.io/binaries
 ENV GO_SERVER=gocd-server \
