@@ -1,4 +1,4 @@
-FROM qnib/alplain-openjre8
+FROM qnib/alplain-openjre8:edge
 
 ARG GOCD_URL=https://download.gocd.io/binaries
 ENV GO_SERVER=gocd-server \
@@ -11,11 +11,8 @@ ENV GO_SERVER=gocd-server \
     DOCKER_REPO_DEFAULT=qnib \
     GOPATH=/usr/local/ \
     DOCKER_CONSUL_DNS=false
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip \
- && go get cmd/vet \
+RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip docker \
  && pip install docker-compose \
- && wget -qO /usr/bin/docker  https://github.com/ChristianKniep/docker/releases/download/v1.13.0-rc6/docker-1.13.0-rc6_alpine \
- && chmod +x /usr/bin/docker \
  && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
  && chmod +x /usr/local/bin/go-github \
  && echo "Download '$(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo service-scripts --regex ".*.tar" --limit 1)'" \
