@@ -11,7 +11,9 @@ ENV GO_SERVER=gocd-server \
     DOCKER_REPO_DEFAULT=qnib \
     GOPATH=/usr/local/ \
     DOCKER_CONSUL_DNS=false
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip docker \
+RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip \
+ && wget -qO /usr/local/bin/docker  https://github.com/ChristianKniep/docker/releases/download/v17.05.0-ce/docker-17.05.0-ce \
+ && chmod +x /usr/local/bin/docker \
  && pip install docker-compose \
  && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
  && chmod +x /usr/local/bin/go-github \
