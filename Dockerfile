@@ -32,6 +32,7 @@ RUN chmod +x /opt/go-agent/agent.sh
 ADD opt/qnib/gocd/agent/bin/check.sh \
     opt/qnib/gocd/agent/bin/start.sh \
     /opt/qnib/gocd/agent/bin/
+ENV ENTRYPOINTS_DIR=/opt/qnib/entry/
 ADD opt/qnib/entry/20-gocd-render-autoregister-conf.sh /opt/qnib/entry/
 ADD opt/qnib/gocd/etc/autoregister.properties /opt/qnib/gocd/etc/
 CMD ["/opt/qnib/gocd/agent/bin/start.sh"]
