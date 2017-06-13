@@ -11,7 +11,7 @@ ENV GO_SERVER=gocd-server \
     DOCKER_REPO_DEFAULT=qnib \
     GOPATH=/usr/local/ \
     DOCKER_CONSUL_DNS=false
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip \
+RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip rsync \
  && wget -qO /usr/local/bin/docker  https://github.com/ChristianKniep/docker/releases/download/v17.05.0-ce/docker-17.05.0-ce \
  && chmod +x /usr/local/bin/docker \
  && pip install docker-compose \
