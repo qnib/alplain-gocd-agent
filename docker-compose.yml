@@ -10,7 +10,8 @@ services:
     ports:
      - 8153:8153
     volumes:
-     - /Users/ckniep/docker/upstream/plain/alplain-gocd-agent/backups/:/opt/go-server/artifacts/serverBackups/
+     - /opt/go-server/artifacts/serverBackups/
+     - /var/run/docker.sock:/var/run/docker.sock
     environment:
      - GOCD_SERVER_CLEAN_WORKSPACE=false
   agent:
