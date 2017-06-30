@@ -1,4 +1,5 @@
-FROM qnib/alplain-openjre8:edge
+ARG DOCKER_REG=docker.io
+FROM ${DOCKER_REG}/qnib/alplain-openjre8:edge
 
 ARG GOCD_URL=https://download.gocd.io/binaries
 ENV GO_SERVER=gocd-server \
