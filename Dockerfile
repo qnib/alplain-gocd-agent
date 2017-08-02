@@ -2,7 +2,7 @@ ARG DOCKER_REG=docker.io
 FROM ${DOCKER_REG}/qnib/alplain-openjre8:edge
 
 ARG GOCD_URL=https://download.gocd.io/binaries
-ENV GO_SERVER=gocd-server \
+ENV GO_SERVER_URL=https://tasks.server:8154/go \
     GOCD_LOCAL_DOCKERENGINE=false \
     GOCD_CLEAN_IMAGES=false \
     DOCKER_TAG_REV=true \

@@ -2,6 +2,8 @@ version: '3'
 services:
   server:
     image: qnib/alplain-gocd-server
+    networks:
+      - gocd_net
     deploy:
       replicas: 1
       placement:
@@ -9,24 +11,31 @@ services:
           - node.role == manager
     ports:
      - 8153:8153
+     - 8154:8154
     volumes:
      - /opt/go-server/artifacts/serverBackups/
      - /var/run/docker.sock:/var/run/docker.sock
     environment:
      - GOCD_SERVER_CLEAN_WORKSPACE=false
-     - GO_SERVER_SYSTEM_PROPERTIES='-Dplugin.cd.go.contrib.elastic-agent.docker-swarm.log.level=debug'
+     #- GO_SERVER_SYSTEM_PROPERTIES='-Dplugin.cd.go.contrib.elastic-agent.docker-swarm.log.level=debug'
   agent:
     image: qnib/alplain-gocd-agent
+    networks:
+      - gocd_net
     deploy:
-      replicas: 2
+      replicas: 0
       update_config:
         parallelism: 1
         delay: 30s
       restart_policy:
         condition: on-failure
     environment:
-     - GO_SERVER=gocd_server
+     - GO_SERVER_URL=https://tasks.server:8154/go
      - DOCKER_HOST=unix:///var/run/docker.sock
      - GOCD_AGENT_AUTOENABLE_KEY=qnibFTW
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  gocd_net:
+    external: true
