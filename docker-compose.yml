@@ -9,6 +9,7 @@ services:
           - node.role == manager
     ports:
      - 8153:8153
+     - 8154:8154
     volumes:
      - ${PWD}/backups/:/opt/go-server/artifacts/serverBackups/
     environment:
@@ -23,7 +24,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-     - GO_SERVER=gocd_server
+     - GO_SERVER_URL=https://tasks.server:8154/go
      - DOCKER_HOST=unix:///var/run/docker.sock
      - GOCD_AGENT_AUTOENABLE_KEY=qnibFTW
     volumes:
