@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -x
 
 cd /opt/go-agent/
