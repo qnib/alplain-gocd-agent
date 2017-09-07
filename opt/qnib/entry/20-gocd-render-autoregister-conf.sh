@@ -14,8 +14,8 @@ if [[ ! -f /opt/go-agent/config/autoregister.properties ]];then
 fi
 
 if [[ "X${GO_EA_AUTO_REGISTER_ELASTIC_AGENT_ID}" != "X" ]];then
-    sed -i'' -e "s;\(#\)*agent.auto.register.elasticAgent.agentId=.*;agent.auto.register.elasticAgent.agentId=${GO_EA_AUTO_REGISTER_ELASTIC_AGENT_ID};" /opt/go-agent/config/autoregister.properties
+    sed -i '' -e "s;\(#\)*agent.auto.register.elasticAgent.agentId=.*;agent.auto.register.elasticAgent.agentId=${GO_EA_AUTO_REGISTER_ELASTIC_AGENT_ID};" /opt/go-agent/config/autoregister.properties
 fi
 if [[ "X${GO_EA_AUTO_REGISTER_ELASTIC_PLUGIN_ID}" != "X" ]];then
-    sed -i'' -e "s;\(#\)*agent.auto.register.elasticAgent.pluginId=.*;agent.auto.register.elasticAgent.pluginId=${GO_EA_AUTO_REGISTER_ELASTIC_PLUGIN_ID};" /opt/go-agent/config/autoregister.properties
+    sed -i '' -e "s;\(#\)*agent.auto.register.elasticAgent.pluginId=.*;agent.auto.register.elasticAgent.pluginId=${GO_EA_AUTO_REGISTER_ELASTIC_PLUGIN_ID};" /opt/go-agent/config/autoregister.properties
 fi
