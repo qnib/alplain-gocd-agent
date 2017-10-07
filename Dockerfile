@@ -29,8 +29,6 @@ RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc ope
  && wget -qO /usr/local/bin/docker  https://github.com/ChristianKniep/docker/releases/download/v17.05.0-ce/docker-17.05.0-ce \
  && chmod +x /usr/local/bin/docker \
  && pip install docker-compose \
- && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
- && chmod +x /usr/local/bin/go-github \
  && echo "Download '$(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo service-scripts --regex ".*.tar" --limit 1)'" \
  && wget -qO - $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo service-scripts --regex ".*.tar" --limit 1) |tar xf - -C /opt/ \
  && wget -qO /usr/local/bin/go-dckrimg $(/usr/local/bin/go-github rLatestUrl --ghrepo go-dckrimg --regex ".*inux") \
