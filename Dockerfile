@@ -47,6 +47,7 @@ ADD opt/qnib/gocd/agent/bin/check.sh \
     /opt/qnib/gocd/agent/bin/
 COPY opt/qnib/entry/20-gocd-render-autoregister-conf.sh \
      opt/qnib/entry/30-chown-gocd-files.sh \
+     opt/qnib/entry/40-unpack-bundles.sh \
      /opt/qnib/entry/
 COPY opt/qnib/gocd/etc/autoregister.properties /opt/qnib/gocd/etc/
 CMD ["/opt/qnib/gocd/agent/bin/start.sh"]
