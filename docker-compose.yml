@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   server:
-    image: qnib/alplain-gocd-server:17.9.0@sha256:b158936a3af13ba0a1ef74fd2e97ecbb32b3a8478fe1c8465a6de266c0f96174
+    image: qnib/alplain-gocd-server:18.1.0
     deploy:
       replicas: 1
       placement:
@@ -10,13 +10,9 @@ services:
     ports:
      - 8153:8153
      - 8154:8154
-    deploy:
-      placement:
-        constraints:
-          - engine.labels.org.gaikai.hostname==wrex1
     configs:
       - source: gocd_config
-        target: /opt/qnib/gocd/cruise-config.xml
+        target: /opt/qnib/gocd/gocd-config.tar
         uid: '0'
         gid: '0'
         mode: 0400
@@ -27,14 +23,14 @@ services:
         gid: '1000'
         mode: 0440
     volumes:
-     - /srv/gocd/:/opt/go-server/artifacts/serverBackups/
+     - /opt/go-server/artifacts/serverBackups/
     environment:
      - GOCD_SERVER_CLEAN_WORKSPACE=false
      - GOCD_AGENT_AUTOENABLE_KEY=qnibFTW
   agent:
-    image: qnib/alplain-gocd-agent:dirty
+    image: qnib/alplain-gocd-agent:18.1.0-1
     deploy:
-      replicas: 2
+      replicas: 1
       update_config:
         parallelism: 1
         delay: 30s
@@ -46,10 +42,18 @@ services:
      - GOCD_AGENT_AUTOENABLE_KEY=qnibFTW
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - source: ucp_bundle_gocd
+        target: /opt/qnib/ucp/bundles/ucp-bundle-gocd.zip
+        uid: '1000'
+        gid: '1000'
+        mode: 0440
 
 secrets:
   gocd_password_properties:
     file: ./gocd_password_properties
+  ucp_bundle_gocd:
+    external: true
 configs:
   gocd_config:
-    file: ./config/default.xml
+    file: ./config/gocd-config.tar
