@@ -1,11 +1,11 @@
 ARG FROM_IMG_REGISTRY=docker.io
-ARG FROM_IMG_TAG=":2018-03-07_b91bfb1837d5"
+ARG FROM_IMG_TAG=":2018-04-11_b91bfb1837d5"
 ARG FROM_IMG_HASH=""
 FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
 
 ARG GOCD_URL=https://download.gocd.io/binaries
-ARG GOCD_VER=18.1.0
-ARG GOCD_SUBVER=5937
+ARG GOCD_VER=18.5.0
+ARG GOCD_SUBVER=6679
 ARG GOCD_URL=https://download.gocd.io/binaries
 
 ENV GO_SERVER_URL=https://tasks.server:8154/go \
