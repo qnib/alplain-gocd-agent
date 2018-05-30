@@ -20,7 +20,8 @@ ENV GO_SERVER_URL=https://tasks.server:8154/go \
     DOCKER_CONSUL_DNS=false \
     ENTRYPOINTS_DIR=/opt/qnib/entry/ \
     ENTRY_USER=gocd \
-    LANG=en_US.utf8
+    LANG=en_US.utf8 \
+    HOME_DIR=/home
 
 # allow mounting ssh keys, dotfiles, and the go server config and data
 VOLUME /godata
