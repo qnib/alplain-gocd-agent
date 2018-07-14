@@ -12,6 +12,6 @@ if [[ -d "/opt/qnib/ucp/bundles/" ]];then
     echo ">> Unzip '${b}' into '${HOME_DIR}/${UCP_USER}/bundle/'"
     unzip -q ${b}
     chmod 644 ${HOME_DIR}/${UCP_USER}/bundle/key.pem
-    chmod 644 ${HOME_DIR}/${UCP_USER}/bundle/kube.yml 
+    chmod 644 ${HOME_DIR}/${UCP_USER}/bundle/kube.yml
   done
 fi
