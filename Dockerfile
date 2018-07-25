@@ -4,9 +4,8 @@ ARG FROM_IMG_HASH=""
 FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
 
 ARG GOCD_URL=https://download.gocd.io/binaries
-ARG GOCD_VER=18.5.0
-ARG GOCD_SUBVER=6679
-ARG GOCD_URL=https://download.gocd.io/binaries
+ARG GOCD_VER=18.7.0
+ARG GOCD_SUBVER=7121
 
 ENV GO_SERVER_URL=https://tasks.server:8154/go \
     GOCD_LOCAL_DOCKERENGINE=false \
