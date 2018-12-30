@@ -1,6 +1,14 @@
 ARG FROM_IMG_REGISTRY=docker.io
-ARG FROM_IMG_TAG=":2018-04-11_b91bfb1837d5"
-ARG FROM_IMG_HASH=""
+ARG FROM_IMG_TAG=":2018-12-30.2"
+ARG FROM_IMG_HASH="@sha256:7c6120fc32e6086469d01b4112786cf63514428078e308e170a4c75a93ad2d0a"
+
+FROM golang:alpine AS build
+WORKDIR /go/src/github.com/estesp
+RUN apk --update add git gcc musl-dev \
+ && git clone https://github.com/estesp/manifest-tool.git manifest-tool
+WORKDIR /go/src/github.com/estesp/manifest-tool
+RUN go build
+
 FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
 
 ARG GOCD_URL=https://download.gocd.io/binaries
@@ -50,4 +58,5 @@ COPY opt/qnib/entry/20-gocd-render-autoregister-conf.sh \
      opt/qnib/entry/40-unpack-bundles.sh \
      /opt/qnib/entry/
 COPY opt/qnib/gocd/etc/autoregister.properties /opt/qnib/gocd/etc/
+COPY --from=build /go/src/github.com/estesp/manifest-tool/manifest-tool /usr/local/bin/manifest-tool
 CMD ["/opt/qnib/gocd/agent/bin/start.sh"]
