@@ -37,7 +37,7 @@ VOLUME /godata
 RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip rsync docker \
  && pip install docker-compose \
  && rm -rf /var/cache/apk/* /tmp/* /opt/go-agent/config/autoregister.properties \
- && adduser -s /sbin/nologin  -D -H -h /opt/go-agent/ gocd
+ && adduser -s /sbin/nologin -u 5000 -D -H -h /opt/go-agent/ gocd
 ## Allow for reusable file-system layers
 RUN echo "Download '${GOCD_URL}/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip'" \
  && wget -qO /tmp/go-agent.zip ${GOCD_URL}/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip \
