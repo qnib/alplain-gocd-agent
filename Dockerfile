@@ -12,8 +12,8 @@ RUN go build
 FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
 
 ARG GOCD_URL=https://download.gocd.io/binaries
-ARG GOCD_VER=18.12.0
-ARG GOCD_SUBVER=8222
+ARG GOCD_VER=19.1.0
+ARG GOCD_SUBVER=8469
 
 ENV GO_SERVER_URL=https://tasks.server:8154/go \
     GOCD_LOCAL_DOCKERENGINE=false \
