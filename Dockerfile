@@ -50,9 +50,8 @@ RUN echo "Download '$(/usr/local/bin/go-github rLatestUrl --ghrepo go-dckrimg --
  && chmod +x /usr/local/bin/go-dckrimg
 RUN echo "Download '$(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo service-scripts --regex ".*.tar" --limit 1)'" \
  && wget -qO - $(/usr/local/bin/go-github rLatestUrl --ghorg qnib --ghrepo service-scripts --regex ".*.tar" --limit 1) |tar xf - -C /opt/
-ADD opt/qnib/gocd/agent/bin/check.sh \
-    opt/qnib/gocd/agent/bin/start.sh \
-    /opt/qnib/gocd/agent/bin/
+ADD opt/qnib/gocd/agent/bin/check.sh /opt/qnib/gocd/agent/bin/
+ADD opt/qnib/gocd/agent/bin/start.sh /opt/qnib/gocd/agent/bin/
 COPY opt/qnib/entry/20-gocd-render-autoregister-conf.sh \
      opt/qnib/entry/30-chown-gocd-files.sh \
      opt/qnib/entry/40-unpack-bundles.sh \
