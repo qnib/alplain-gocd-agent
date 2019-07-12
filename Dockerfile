@@ -12,8 +12,8 @@ RUN go build
 FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
 
 ARG GOCD_URL=https://download.gocd.io/binaries
-ARG GOCD_VER=19.1.0
-ARG GOCD_SUBVER=8469
+ARG GOCD_VER=19.5.0
+ARG GOCD_SUBVER=9272
 
 ENV GO_SERVER_URL=https://tasks.server:8154/go \
     GOCD_LOCAL_DOCKERENGINE=false \
@@ -33,8 +33,27 @@ ENV GO_SERVER_URL=https://tasks.server:8154/go \
 # allow mounting ssh keys, dotfiles, and the go server config and data
 VOLUME /godata
 
-
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip rsync docker \
+RUN apk add --no-cache \
+   bc \
+   curl \
+   docker \
+   file \
+   gcc \
+   git \
+   go \
+   jq \
+   libffi-dev \
+   linux-vanilla-dev \
+   make \
+   musl-dev \
+   openssl \
+   openssl-dev \
+   perl \
+   py-pip \
+   python-dev \
+   rsync \
+   sed \
+   wget \
  && pip install docker-compose \
  && rm -rf /var/cache/apk/* /tmp/* /opt/go-agent/config/autoregister.properties \
  && adduser -s /sbin/nologin -u 5000 -D -H -h /opt/go-agent/ gocd
