@@ -1,6 +1,6 @@
 ARG FROM_IMG_REGISTRY=docker.io
-ARG FROM_IMG_TAG=":2019-02-13.1"
-ARG FROM_IMG_HASH="@sha256:c85eb71442920b6ac34f65ba66a651a56b87fa060c5263df3c68fa6cd23b7a84"
+ARG FROM_IMG_TAG=":3.15.1"
+ARG FROM_IMG_HASH="@sha256:11c86b9322f1022e977cc7c8968b272df7f9b7c704af2d45c2ac6e336fad259e"
 
 FROM golang:alpine AS build
 WORKDIR /go/src/github.com/estesp
@@ -9,11 +9,10 @@ RUN apk --update add git gcc musl-dev \
 WORKDIR /go/src/github.com/estesp/manifest-tool
 RUN go build
 
-FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre8${FROM_IMG_TAG}${FROM_IMG_HASH}
-
+FROM ${FROM_IMG_REGISTRY}/qnib/alplain-openjre17${FROM_IMG_TAG}${FROM_IMG_HASH}
 ARG GOCD_URL=https://download.gocd.io/binaries
-ARG GOCD_VER=19.1.0
-ARG GOCD_SUBVER=8469
+ARG GOCD_VER=22.1.0
+ARG GOCD_SUBVER=13913
 
 ENV GO_SERVER_URL=https://tasks.server:8154/go \
     GOCD_LOCAL_DOCKERENGINE=false \
@@ -34,7 +33,7 @@ ENV GO_SERVER_URL=https://tasks.server:8154/go \
 VOLUME /godata
 
 
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file py-pip rsync docker \
+RUN apk add --no-cache wget libc-dev libffi-dev openssl-dev git jq perl sed bc curl openssl make file python3-dev py-pip rsync docker gcc rust cargo \
  && pip install docker-compose \
  && rm -rf /var/cache/apk/* /tmp/* /opt/go-agent/config/autoregister.properties \
  && adduser -s /sbin/nologin -u 5000 -D -H -h /opt/go-agent/ gocd
@@ -43,8 +42,7 @@ RUN echo "Download '${GOCD_URL}/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GO
  && wget -qO /tmp/go-agent.zip ${GOCD_URL}/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip \
  && mkdir -p /opt/ && cd /opt/ \
  && unzip -q /tmp/go-agent.zip && rm -f /tmp/go-agent.zip \
- && mv /opt/go-agent-${GOCD_VER} /opt/go-agent \
- && chmod +x /opt/go-agent/agent.sh
+ && mv /opt/go-agent-${GOCD_VER} /opt/go-agent
 RUN echo "Download '$(/usr/local/bin/go-github rLatestUrl --ghrepo go-dckrimg --regex \".*inux\")'" \
  && wget -qO /usr/local/bin/go-dckrimg $(/usr/local/bin/go-github rLatestUrl --ghrepo go-dckrimg --regex ".*inux") \
  && chmod +x /usr/local/bin/go-dckrimg
@@ -57,5 +55,5 @@ COPY opt/qnib/entry/20-gocd-render-autoregister-conf.sh \
      opt/qnib/entry/40-unpack-bundles.sh \
      /opt/qnib/entry/
 COPY opt/qnib/gocd/etc/autoregister.properties /opt/qnib/gocd/etc/
-COPY --from=build /go/src/github.com/estesp/manifest-tool/manifest-tool /usr/local/bin/manifest-tool
+#COPY --from=build /go/src/github.com/estesp/manifest-tool/manifest-tool /usr/local/bin/manifest-tool
 CMD ["/opt/qnib/gocd/agent/bin/start.sh"]
